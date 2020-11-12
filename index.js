@@ -3,33 +3,11 @@ const fs = require('fs');
 const util = require('util');
 
 
-const api = require('./utils/api');
+// const api = require('./utils/api');
 const generateMarkdown = require('./utils/generateMarkdown.js');
 
 // array of questions for user
 const questions = [
-    {
-        type: 'input',
-        message: "What is your GitHub username? (No @ needed)",
-        name: 'username',
-        validate: function (answer) {
-            if (answer.length < 1) {
-                return console.log("A valid GitHub username is required.");
-            }
-            return true;
-        }
-    }, 
-    {
-        type: 'input',
-        message: "What is the name of your GitHub repo?",
-        name: 'repo',
-        validate: function (answer) {
-            if (answer.length < 1) {
-                return console.log("A valid GitHub repo is required for a badge.");
-            }
-            return true;
-        }
-    },
     {
         type: 'input',
         message: "What is the title of your project?",
@@ -54,7 +32,7 @@ const questions = [
     },
     {
         type: 'input',
-        message: "If applicable, describe the steps required to install your project for the Installation section.",
+        message: "If applicable, Describe the steps required to install your project for the Installation section.",
         name: 'installation'
     },
     {
@@ -70,9 +48,19 @@ const questions = [
     {
         type: 'list',
         message: "Choose a license for your project.",
-        choices: ['Apache License 2.0', 'MIT License','The Unlicense'],
+        choices: ['Apache License 2.0', 'MIT License','No license'],
         name: 'license'
-    }
+    },
+    {
+        type: 'input',
+        message: "What is your git repository name?",
+        name: 'repo',
+    },
+    {
+        type: 'input',
+        message: "What is your email address?",
+        name: 'Email',
+    },
 
 ];
 
@@ -94,11 +82,8 @@ async function init() {
         const Response = await inquirer.prompt(questions);
         console.log("User Response: ", Response);
 
-        const info = await api.getUser(Response);
-        console.log("User Git Hub user info: ", info);
-
         console.log("Generating Your README ...");
-        const generated = generateMarkdown(Response, info);
+        const generated = generateMarkdown(Response);
         console.log(generated);
 
         await writeFileAsync('Generated-README.md', generated);

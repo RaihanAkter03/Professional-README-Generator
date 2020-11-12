@@ -1,62 +1,74 @@
 
 // function to generate markdown for README
-function generateMarkdown(Response, info) {
-//   return `# ${data.title}
+function generateMarkdown(Response) {
 
-// `;
   let tableContent = `## Table of Content`;
-  tableContent += `* [Installation](#installation)`;
-  tableContent += `* [Usage](#usage)`;
-  tableContent += `* [Contributing](#contributing)`;
-  tableContent += `* [Tests](#tests)`;
 
   let draftMarkdown = `# ${Response.title}
 
+  ## Git Repository URL
+
+  *  ${Response.repo}
+
   ## Description
 
-  ${Response.description}`
+  ${Response.description}
+
+  `
+
+  //table of content
   draftMarkdown += tableContent;
-  draftMarkdown += `* [License](#license)`;
+  
+  
+  draftMarkdown += `
+  * [Installation](#installation)
+  * [Usage](#usage)
+  * [Contributing](#contributing)
+  * [License](#license)`;
 
 
+//installation
   draftMarkdown += `* 
   ## Installation
 
-  Note:Steps required to install project .
-  ${Response.installation}`
+  Steps required to install project .
+  
+  * ${Response.installation}
+  `
 
+  //usage part
   draftMarkdown += `
   ## Usage
 
-  Note: Instruction about usage
+  Instruction about usage
 
-  ${Response.usage}`
+  * ${Response.usage}`
 
+//contributting part
   draftMarkdown += `
   ## Contributing
 
-  Note:Follow the guidelines to contribute.
-${Response.contributing}` 
+  Follow the guidelines to contribute.
+
+
+  * ${Response.contributing}` 
   
 
-  draftMarkdown += `
-  ## Tests
-
-  Note:Follow the guidelines to contribute.
-${Response.tests}` 
-
+  //license part
   draftMarkdown += `
   ## License
 
-  Note:Follow the guidelines to contribute.
-${Response.license}` 
-  
+  Whatever license you have used.
+
+  * ${Response.license}
+` 
+    
   draftMarkdown += `
   ## Contact  
 
-  Please contact me if you have questiona nd concern..
+  Please contact me if you have question or concern..
 
-Email Me @ ${info.email}`
+ * Email Me @ ${Response.Email}`
 
   return draftMarkdown;
 
